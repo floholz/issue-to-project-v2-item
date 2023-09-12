@@ -1,18 +1,24 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Issue to Project V2 Item'
+description: 'Creates a Project V2 item for opened issues, to separate the issue from the card'
+author: 'Florian Holzmann'
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
+  project-url:
     required: true
-    default: '1000'
+    description: 'URL of the project to add issues to.'
+  github-token:
+    required: true
+    description: 'A GitHub personal access token with write access to the project.'
+  reference-issue:
+    required: false
+    default: 'true'
+    description: 'Flag for referencing the issue in the project item. By default the issue is referenced.'
 
 # Define your outputs here.
 outputs:
-  time:
-    description: 'Your output description here'
+  project-v2-item-id:
+    description: 'The Id of the created project V2 item.'
 
 runs:
   using: node20
