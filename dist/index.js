@@ -9724,8 +9724,6 @@ async function issueToProjectV2Item() {
     const ghToken = core.getInput('github-token', { required: true });
     const octokit = github.getOctokit(ghToken);
     const issue = github.context.payload.issue;
-    const issueLabels = (issue?.labels ?? []).map((l) => l.name.toLowerCase());
-    const issueOwnerName = github.context.payload.repository?.owner.login;
     core.debug(`Project URL: ${projectUrl}`);
     const urlMatch = projectUrl.match(urlParse);
     if (!urlMatch) {

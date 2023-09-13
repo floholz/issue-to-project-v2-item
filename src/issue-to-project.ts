@@ -18,14 +18,6 @@ interface ProjectNodeIDResponse {
   }
 }
 
-interface ProjectAddItemResponse {
-  addProjectV2ItemById: {
-    item: {
-      id: string
-    }
-  }
-}
-
 interface ProjectV2AddDraftIssueResponse {
   addProjectV2DraftIssue: {
     projectItem: {
@@ -36,6 +28,7 @@ interface ProjectV2AddDraftIssueResponse {
 
 type Issue =
   | {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       [key: string]: any
       number: number
       html_url?: string
@@ -44,16 +37,12 @@ type Issue =
   | undefined
 
 export async function issueToProjectV2Item(): Promise<string> {
-  const projectUrl = core.getInput('project-url', { required: true })
-  const ghToken = core.getInput('github-token', { required: true })
+  const projectUrl: string = core.getInput('project-url', { required: true })
+  const ghToken: string = core.getInput('github-token', { required: true })
 
   const octokit = github.getOctokit(ghToken)
 
   const issue: Issue = github.context.payload.issue
-  const issueLabels: string[] = (issue?.labels ?? []).map(
-    (l: { name: string }) => l.name.toLowerCase()
-  )
-  const issueOwnerName = github.context.payload.repository?.owner.login
 
   core.debug(`Project URL: ${projectUrl}`)
   const urlMatch = projectUrl.match(urlParse)
@@ -137,7 +126,7 @@ function mustGetOwnerTypeQuery(ownerType?: string): 'organization' | 'user' {
   return ownerTypeQuery
 }
 
-function generateDefaultIssueBody(issue: Issue) {
+function generateDefaultIssueBody(issue: Issue): string {
   const issueRef = `> [Original Issue](${issue?.html_url})`
   const descriptionHeader = '## Description'
   const descriptionPlaceholder = '_Add the issue description here_\n'
