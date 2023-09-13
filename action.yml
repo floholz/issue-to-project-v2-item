@@ -1,8 +1,10 @@
 name: 'Issue to Project V2 Item'
 description: 'Creates a Project V2 item for opened issues, to separate the issue from the card'
 author: 'Florian Holzmann'
-color: 'blue'
-icon: 'copy'
+
+branding:
+  color: 'blue' 
+  icon: 'copy'
 
 # Define your inputs here.
 inputs:
