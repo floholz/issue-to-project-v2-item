@@ -1,7 +1,7 @@
 {
   "name": "issue-to-project-v2-item",
   "description": "Creates a Project V2 item for opened issues, to separate the issue from the card",
-  "version": "0.0.0",
+  "version": "1.0.0-beta",
   "author": "",
   "private": true,
   "homepage": "https://github.com/actions/typescript-action",

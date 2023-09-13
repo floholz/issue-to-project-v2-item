@@ -1,5 +1,5 @@
-import * as core from '@actions/core';
-import {issueToProjectV2Item} from "./issue-to-project";
+import * as core from '@actions/core'
+import { issueToProjectV2Item } from './issue-to-project'
 
 /**
  * The main function for the action.
@@ -7,7 +7,7 @@ import {issueToProjectV2Item} from "./issue-to-project";
  */
 export async function run(): Promise<void> {
   try {
-    const projectV2ItemId = await issueToProjectV2Item();
+    const projectV2ItemId = await issueToProjectV2Item()
     // Set outputs for other workflow steps to use
     core.setOutput('project-v2-item-id', projectV2ItemId)
   } catch (error) {
