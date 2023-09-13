@@ -132,11 +132,17 @@ function generateDefaultIssueBody(issue: Issue): string {
   const descriptionPlaceholder = '_Add the issue description here_\n'
   const tasksHeader = '## Tasks'
   const tasksPlaceholder = '- [ ] Task 1\n- [ ] Task 2\n- [ ] Task 3\n\n'
+  const divider = '---'
+  const originalDescription = '## Original Description\n'
+  const issueBody = issue?.body
   return [
     issueRef,
     descriptionHeader,
     descriptionPlaceholder,
     tasksHeader,
-    tasksPlaceholder
+    tasksPlaceholder,
+    divider,
+    originalDescription,
+    issueBody
   ].join('\n')
 }
