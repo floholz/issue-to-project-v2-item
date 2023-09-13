@@ -10,10 +10,6 @@ inputs:
   github-token:
     required: true
     description: 'A GitHub personal access token with write access to the project.'
-  reference-issue:
-    required: false
-    default: 'true'
-    description: 'Flag for referencing the issue in the project item. By default the issue is referenced.'
 
 # Define your outputs here.
 outputs:

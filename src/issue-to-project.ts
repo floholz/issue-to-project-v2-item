@@ -34,6 +34,13 @@ interface ProjectV2AddDraftIssueResponse {
     }
 }
 
+type Issue = {
+    [key: string]: any;
+    number: number;
+    html_url?: string;
+    body?: string;
+} | undefined;
+
 
 export async function issueToProjectV2Item(): Promise<string> {
     const projectUrl = core.getInput('project-url', {required: true});
@@ -41,7 +48,7 @@ export async function issueToProjectV2Item(): Promise<string> {
 
     const octokit = github.getOctokit(ghToken);
 
-    const issue = github.context.payload.issue;
+    const issue: Issue = github.context.payload.issue;
     const issueLabels: string[] = (issue?.labels ?? []).map((l: {name: string}) => l.name.toLowerCase());
     const issueOwnerName = github.context.payload.repository?.owner.login;
 
@@ -87,10 +94,10 @@ export async function issueToProjectV2Item(): Promise<string> {
 
     // 2. Create drafted issue in project
     const itemTitle = issue?.title ?? 'Unknown Issue';
-    const itemBody = ''; // todo: generate issue url + append issue.body
+    const itemBody = generateDefaultIssueBody(issue);
 
     const createdProjectItem = await octokit.graphql<ProjectV2AddDraftIssueResponse>(
-        `mutation createDraftIssue($projectId: String!, $itemTitle: String!, $itemBody: String!) {
+        `mutation createDraftIssue($projectId: ID!, $itemTitle: String!, $itemBody: String!) {
             addProjectV2DraftIssue(input: {
                 projectId: $projectId,
                     title: $itemTitle,
@@ -122,4 +129,12 @@ function mustGetOwnerTypeQuery(ownerType?: string): 'organization' | 'user' {
     return ownerTypeQuery
 }
 
+function generateDefaultIssueBody(issue: Issue) {
+    const issueRef = `> [Original Issue](${issue?.html_url})`;
+    const descriptionHeader = '## Description';
+    const descriptionPlaceholder = '_Add the issue description here_\n'
+    const tasksHeader = '## Tasks';
+    const tasksPlaceholder = '- [ ] Task 1\n- [ ] Task 2\n- [ ] Task 3\n\n'
+    return [issueRef, descriptionHeader, descriptionPlaceholder, tasksHeader, tasksPlaceholder].join('\n');
+}
 
