@@ -1,5 +1,8 @@
 {
+  "plugins": {},
+  "filters": {},
   "rules": {
-    "terminology": false
+    "terminology": false,
+    "no-todo": true
   }
 }
