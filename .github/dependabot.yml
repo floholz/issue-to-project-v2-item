@@ -6,7 +6,10 @@ updates:
       - dependabot
       - actions
     schedule:
-      interval: daily
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Vienna"
 
   - package-ecosystem: npm
     directory: /
@@ -14,4 +17,7 @@ updates:
       - dependabot
       - npm
     schedule:
-      interval: daily
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Vienna"
