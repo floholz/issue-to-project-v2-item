@@ -1,0 +1,20 @@
+name: Create project V2 item for opened issue
+
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  issue-to-project:
+    name: Create project item from issue
+    runs-on: ubuntu-latest
+    steps:
+      - uses: floholz/issue-to-project-v2-item@7396006dcb1dabe7688a3db1bd67c33a7957b320
+        with:
+          # Auth token used to fetch the project and add the item to.
+          # The token needs to have at least ['project'] scope.
+          github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
+
+          # The URL of the project the item should be added to.
+          project-url: https://github.com/users/floholz/projects/3
